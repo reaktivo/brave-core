@@ -369,4 +369,11 @@ void BatLedgerImpl::AdSustained(const std::string& info) {
   ledger_->AdSustained(info);
 }
 
+void BatLedgerImpl::GetRewardsInternalsInfo(
+    GetRewardsInternalsInfoCallback callback) {
+  ledger::RewardsInternalsInfo info;
+  ledger_->GetRewardsInternalsInfo(info);
+  std::move(callback).Run(info.ToJson());
+}
+
 }  // namespace bat_ledger

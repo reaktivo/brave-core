@@ -16,6 +16,7 @@
 #include "bat/ledger/ledger_client.h"
 #include "bat/ledger/publisher_info.h"
 #include "bat/ledger/media_publisher_info.h"
+#include "bat/ledger/rewards_internals_info.h"
 
 namespace ledger {
 
@@ -294,6 +295,8 @@ class LEDGER_EXPORT Ledger {
   virtual void SetCatalogIssuers(const std::string& info) = 0;
 
   virtual void AdSustained(const std::string& info) = 0;
+
+  virtual void GetRewardsInternalsInfo(ledger::RewardsInternalsInfo& info) = 0;
 };
 
 }  // namespace ledger

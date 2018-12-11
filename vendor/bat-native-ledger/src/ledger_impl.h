@@ -428,6 +428,8 @@ class LedgerImpl : public ledger::Ledger,
       const int line,
       const ledger::LogLevel log_level) const;
 
+  void GetRewardsInternalsInfo(ledger::RewardsInternalsInfo& info) override;
+
  private:
   void AddRecurringPayment(const std::string& publisher_id,
                            const double& value) override;
