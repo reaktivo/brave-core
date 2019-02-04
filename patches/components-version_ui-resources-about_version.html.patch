@@ -1,0 +1,15 @@
+diff --git a/components/version_ui/resources/about_version.html b/components/version_ui/resources/about_version.html
+index a6ddaff346ca5fafcc6f4156da607a997af20349..eff226702323dff79f6150c63f62e54b3ab5667d 100644
+--- a/components/version_ui/resources/about_version.html
++++ b/components/version_ui/resources/about_version.html
+@@ -42,6 +42,10 @@ about:version template page
+ </if>
+         <div id="company">$i18n{company}</div>
+         <div id="copyright">$i18n{copyright}</div>
++        <hr>
++        <div id="rewards" class="version">
++          <a href="chrome://rewards-internals">$i18n{brave_rewards_details}</a>
++        </div>
+       </div>
+       <table id="inner" cellpadding="0" cellspacing="0" border="0">
+         <tr><td class="label">$i18n{application_label}</td>
