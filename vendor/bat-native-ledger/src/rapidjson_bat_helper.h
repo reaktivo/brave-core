@@ -17,6 +17,7 @@ namespace ledger {
 struct AutoContributeProps;
 struct BalanceReportInfo;
 struct ContributionInfo;
+struct CurrentReconcileInfo;
 struct Grant;
 struct PublisherBanner;
 struct PublisherInfo;
@@ -61,6 +62,7 @@ void saveToJson(JsonWriter & writer, const GRANTS_PROPERTIES_ST&);
 void saveToJson(JsonWriter & writer, const ledger::AutoContributeProps&);
 void saveToJson(JsonWriter & writer, const ledger::BalanceReportInfo&);
 void saveToJson(JsonWriter & writer, const ledger::ContributionInfo&);
+void saveToJson(JsonWriter & writer, const ledger::CurrentReconcileInfo&);
 void saveToJson(JsonWriter & writer, const ledger::Grant&);
 void saveToJson(JsonWriter & writer, const ledger::PublisherBanner&);
 void saveToJson(JsonWriter & writer, const ledger::PublisherInfo&);
