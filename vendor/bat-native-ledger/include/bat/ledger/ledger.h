@@ -14,6 +14,7 @@
 #include "bat/ledger/ledger_client.h"
 #include "bat/ledger/publisher_info.h"
 #include "bat/ledger/media_publisher_info.h"
+#include "bat/ledger/transactions_info.h"
 
 namespace ledger {
 
@@ -74,6 +75,8 @@ LEDGER_EXPORT struct PaymentData {
 
 using PublisherBannerCallback = std::function<void(std::unique_ptr<ledger::PublisherBanner> banner)>;
 using WalletAddressesCallback = std::function<void(std::map<std::string, std::string> addresses)>;
+using AdsNotificationsHistoryCallback = std::function<void(
+    const ledger::TransactionsInfo&)>;
 
 class LEDGER_EXPORT Ledger {
  public:
@@ -211,6 +214,10 @@ class LEDGER_EXPORT Ledger {
 
   virtual void SetCatalogIssuers(const std::string& info) = 0;
   virtual void AdSustained(const std::string& info) = 0;
+  virtual void GetAdsNotificationsHistory(
+    const uint64_t from_timestamp,
+    const uint64_t to_timestamp,
+    ledger::AdsNotificationsHistoryCallback callback) = 0;
 };
 
 }  // namespace ledger

@@ -127,6 +127,10 @@ class BatLedgerImpl : public mojom::BatLedger,
 
     void GetAddressesForPaymentId(
         GetAddressesForPaymentIdCallback callback) override;
+    void GetAdsNotificationsHistory(
+        const uint64_t from_timestamp,
+        const uint64_t to_timestamp,
+        GetAdsNotificationsHistoryCallback callback) override;
 
   private:
     void SetCatalogIssuers(const std::string& info) override;
@@ -157,6 +161,9 @@ class BatLedgerImpl : public mojom::BatLedger,
     static void OnAddressesForPaymentId(
         CallbackHolder<GetAddressesForPaymentIdCallback>* holder,
         std::map<std::string, std::string> addresses);
+    static void OnGetAdsNotificationsHistory(
+        CallbackHolder<GetAdsNotificationsHistoryCallback>* holder,
+        std::unique_ptr<ledger::TransactionsInfo> history);
 
     std::unique_ptr<BatLedgerClientMojoProxy> bat_ledger_client_mojo_proxy_;
     std::unique_ptr<ledger::Ledger> ledger_;

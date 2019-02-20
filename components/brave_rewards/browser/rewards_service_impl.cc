@@ -1443,6 +1443,36 @@ void RewardsServiceImpl::SetConfirmationsIsReady(const bool is_ready) {
     ads_service->SetConfirmationsIsReady(is_ready);
 }
 
+void RewardsServiceImpl::GetAdsNotificationsHistory(
+    const uint64_t from_timestamp,
+    const uint64_t to_timestamp) {
+  if (!Connected()) {
+    return;
+  }
+
+  bat_ledger_->GetAdsNotificationsHistory(from_timestamp, to_timestamp,
+      base::BindOnce(&RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy,
+        AsWeakPtr()));
+}
+
+void RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy(
+    const std::string& transactions) {
+  std::unique_ptr<ledger::TransactionsInfo> info;
+  if (!transactions.empty()) {
+    info.reset(new ledger::TransactionsInfo());
+    info->FromJson(transactions);
+  }
+  OnGetAdsNotificationsHistory(std::move(info));
+}
+
+void RewardsServiceImpl::OnGetAdsNotificationsHistory(
+    std::unique_ptr<ledger::TransactionsInfo> transactionInfo) {
+  if (!transactionInfo) {
+    return;
+  }
+  //
+}
+
 void RewardsServiceImpl::SaveState(const std::string& name,
                                    const std::string& value,
                                    ledger::OnSaveCallback callback) {
