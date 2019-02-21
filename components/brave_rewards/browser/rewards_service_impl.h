@@ -328,6 +328,9 @@ class RewardsServiceImpl : public RewardsService,
   void SetCatalogIssuers(const std::string& json) override;
   void AdSustained(const std::string& json) override;
   void SetConfirmationsIsReady(const bool is_ready) override;
+  void GetAdsNotificationsHistory(
+      const uint64_t from_timestamp,
+      const uint64_t to_timestamp) override;
 
   void OnExcludedSitesChanged(const std::string& publisher_id) override;
   void OnPanelPublisherInfo(ledger::Result result,
@@ -399,6 +402,8 @@ class RewardsServiceImpl : public RewardsService,
 
   // Mojo Proxy methods
   void OnPublisherBannerMojoProxy(const std::string& banner);
+  void OnGetAdsNotificationsHistoryMojoProxy(
+    const std::string& transactions);
   void OnGetAllBalanceReports(
       const GetAllBalanceReportsCallback& callback,
       const base::flat_map<std::string, std::string>& json_reports);
@@ -407,6 +412,8 @@ class RewardsServiceImpl : public RewardsService,
   void OnGetAddresses(
       const GetAddressesCallback& callback,
       const base::flat_map<std::string, std::string>& addresses);
+  void OnGetAdsNotificationsHistory(
+      std::unique_ptr<ledger::TransactionsInfo> transactionInfo);
   void OnGetAutoContributeProps(
       const GetAutoContributePropsCallback& callback,
       const std::string& json_props);

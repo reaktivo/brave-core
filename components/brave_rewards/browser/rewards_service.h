@@ -168,6 +168,9 @@ class RewardsService : public KeyedService {
   // TODO remove this hack when ads is moved to the same process as ledger
   virtual void SetCatalogIssuers(const std::string& json) = 0;
   virtual void AdSustained(const std::string& json) = 0;
+  virtual void GetAdsNotificationsHistory(
+      const uint64_t from_timestamp,
+      const uint64_t to_timestamp) = 0;
 
   virtual void GetAddressesForPaymentId(
       const GetAddressesCallback& callback) = 0;

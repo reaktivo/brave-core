@@ -31,6 +31,7 @@
 #include "bat/ledger/media_publisher_info.h"
 #include "bat/ledger/publisher_info.h"
 #include "bat/ledger/wallet_info.h"
+#include "bat/ledger/transactions_info.h"
 #include "brave/browser/ui/webui/brave_rewards_source.h"
 #include "brave/components/brave_rewards/common/pref_names.h"
 #include "brave/common/pref_names.h"
@@ -1442,6 +1443,36 @@ void RewardsServiceImpl::SetConfirmationsIsReady(const bool is_ready) {
   auto* ads_service = brave_ads::AdsServiceFactory::GetForProfile(profile_);
   if (ads_service)
     ads_service->SetConfirmationsIsReady(is_ready);
+}
+
+void RewardsServiceImpl::GetAdsNotificationsHistory(
+    const uint64_t from_timestamp,
+    const uint64_t to_timestamp) {
+  if (!Connected()) {
+    return;
+  }
+
+  bat_ledger_->GetAdsNotificationsHistory(from_timestamp, to_timestamp,
+      base::BindOnce(&RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy,
+        AsWeakPtr()));
+}
+
+void RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy(
+    const std::string& transactions) {
+  std::unique_ptr<ledger::TransactionsInfo> info;
+  if (!transactions.empty()) {
+    info.reset(new ledger::TransactionsInfo());
+    info->FromJson(transactions);
+  }
+  OnGetAdsNotificationsHistory(std::move(info));
+}
+
+void RewardsServiceImpl::OnGetAdsNotificationsHistory(
+    std::unique_ptr<ledger::TransactionsInfo> transactionInfo) {
+  if (!transactionInfo) {
+    return;
+  }
+  //
 }
 
 void RewardsServiceImpl::SaveState(const std::string& name,

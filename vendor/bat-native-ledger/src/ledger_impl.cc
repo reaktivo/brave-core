@@ -1282,4 +1282,11 @@ void LedgerImpl::AdSustained(const std::string& info) {
   bat_confirmations_->AdSustained(std::move(notification_info));
 }
 
+void LedgerImpl::GetAdsNotificationsHistory(
+    const uint64_t from_timestamp,
+    const uint64_t to_timestamp,
+    ledger::AdsNotificationsHistoryCallback callback) {
+  bat_confirmations_->GetTransactionHistory(from_timestamp, to_timestamp, callback);
+}
+
 }  // namespace bat_ledger
