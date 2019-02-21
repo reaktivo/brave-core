@@ -119,7 +119,10 @@ bool IsWhitelistedCookieExeption(const GURL& firstPartyOrigin,
   // Check with the security team before adding exceptions.
 
   // 1st-party-INdependent whitelist
-  std::vector<URLPattern> fpi_whitelist_patterns = {};
+  std::vector<URLPattern> fpi_whitelist_patterns = {
+    URLPattern(URLPattern::SCHEME_ALL,
+        "https://accounts.google.com/o/oauth2/*")
+  };
   bool any_match = std::any_of(fpi_whitelist_patterns.begin(),
       fpi_whitelist_patterns.end(),
       [&subresourceUrl](const URLPattern& pattern) {
