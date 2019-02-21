@@ -117,6 +117,19 @@ bool IsWhitelistedCookieExeption(const GURL& firstPartyOrigin,
     const GURL& subresourceUrl) {
   // Note that there's already an exception for TLD+1, so don't add those here.
   // Check with the security team before adding exceptions.
+
+  // 1st-party-INdependent whitelist
+  std::vector<URLPattern> fpi_whitelist_patterns = {};
+  bool any_match = std::any_of(fpi_whitelist_patterns.begin(),
+      fpi_whitelist_patterns.end(),
+      [&subresourceUrl](const URLPattern& pattern) {
+        return pattern.MatchesURL(subresourceUrl);
+      });
+  if (any_match) {
+    return true;
+  }
+
+  // 1st-party-dependent whitelist
   static std::map<GURL, std::vector<URLPattern> > whitelist_patterns = {};
   std::map<GURL, std::vector<URLPattern> >::iterator i =
       whitelist_patterns.find(firstPartyOrigin);
