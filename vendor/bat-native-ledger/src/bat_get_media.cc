@@ -627,8 +627,6 @@ void BatGetMedia::fetchPublisherDataFromDB(
     const std::string& publisher_blob) {
   auto filter = ledger_->CreateActivityFilter(
     publisher_key,
-    ledger::ACTIVITY_MONTH::ANY,
-    -1,
     ledger::EXCLUDE_FILTER::FILTER_ALL,
     false,
     ledger_->GetReconcileStamp(),
