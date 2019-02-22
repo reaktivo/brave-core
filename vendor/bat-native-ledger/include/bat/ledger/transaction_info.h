@@ -2,8 +2,8 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#ifndef BAT_LEDGER_TRANSACTION_INFO_HANDLER_
-#define BAT_LEDGER_TRANSACTION_INFO_HANDLER_
+#ifndef BAT_LEDGER_TRANSACTION_INFO_
+#define BAT_LEDGER_TRANSACTION_INFO_
 
 #include <string>
 #include <vector>
@@ -23,4 +23,4 @@ LEDGER_EXPORT struct TransactionInfo {
 
 }  // namespace ledger
 
-#endif  // BAT_LEDGER_TRANSACTION_INFO_HANDLER_
+#endif  // BAT_LEDGER_TRANSACTION_INFO_

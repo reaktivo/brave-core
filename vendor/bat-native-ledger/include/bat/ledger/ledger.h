@@ -60,7 +60,7 @@ using PublisherBannerCallback =
 using WalletAddressesCallback =
     std::function<void(std::map<std::string, std::string> addresses)>;
 using AdsNotificationsHistoryCallback = std::function<void(
-    const ledger::TransactionsInfo&)>;
+    std::unique_ptr<ledger::TransactionsInfo> info)>;
 
 class LEDGER_EXPORT Ledger {
  public:

@@ -99,9 +99,14 @@ source_set("ledger") {
     "src/bignum.h",
     "src/ledger_impl.cc",
     "src/ledger_impl.h",
+    "src/transaction_info.cc",
+    "include/bat/ledger/transaction_info.h",
+    "src/transactions_info.cc",
+    "include/bat/ledger/transactions_info.h",
   ]
 
   deps = [
+    "//base",
     "//third_party/boringssl",
     rebase_path("bat-native-ads", dep_base),
     rebase_path("bat-native-confirmations", dep_base),
