@@ -128,8 +128,8 @@ class BatLedgerImpl : public mojom::BatLedger,
     void GetAddressesForPaymentId(
         GetAddressesForPaymentIdCallback callback) override;
     void GetAdsNotificationsHistory(
-        const uint64_t from_timestamp,
-        const uint64_t to_timestamp,
+        const uint64_t from_timestamp_seconds,
+        const uint64_t to_timestamp_seconds,
         GetAdsNotificationsHistoryCallback callback) override;
 
   private:

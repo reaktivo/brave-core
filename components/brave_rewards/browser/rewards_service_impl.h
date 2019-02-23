@@ -330,8 +330,8 @@ class RewardsServiceImpl : public RewardsService,
   void AdSustained(const std::string& json) override;
   void SetConfirmationsIsReady(const bool is_ready) override;
   void GetAdsNotificationsHistory(
-      const uint64_t from_timestamp,
-      const uint64_t to_timestamp) override;
+      const uint64_t from_timestamp_seconds,
+      const uint64_t to_timestamp_seconds) override;
 
   void OnExcludedSitesChanged(const std::string& publisher_id) override;
   void OnPanelPublisherInfo(ledger::Result result,
@@ -414,7 +414,7 @@ class RewardsServiceImpl : public RewardsService,
       const GetAddressesCallback& callback,
       const base::flat_map<std::string, std::string>& addresses);
   void OnGetAdsNotificationsHistory(
-      std::unique_ptr<ledger::TransactionsInfo> transactionInfo);
+      std::unique_ptr<ledger::TransactionsInfo> transactions_info);
   void OnGetAutoContributeProps(
       const GetAutoContributePropsCallback& callback,
       const std::string& json_props);

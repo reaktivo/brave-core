@@ -1446,15 +1446,15 @@ void RewardsServiceImpl::SetConfirmationsIsReady(const bool is_ready) {
 }
 
 void RewardsServiceImpl::GetAdsNotificationsHistory(
-    const uint64_t from_timestamp,
-    const uint64_t to_timestamp) {
+    const uint64_t from_timestamp_seconds,
+    const uint64_t to_timestamp_seconds) {
   if (!Connected()) {
     return;
   }
 
-  bat_ledger_->GetAdsNotificationsHistory(from_timestamp, to_timestamp,
-      base::BindOnce(&RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy,
-        AsWeakPtr()));
+  bat_ledger_->GetAdsNotificationsHistory(from_timestamp_seconds,
+      to_timestamp_seconds, base::BindOnce(
+      &RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy, AsWeakPtr()));
 }
 
 void RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy(
@@ -1468,18 +1468,16 @@ void RewardsServiceImpl::OnGetAdsNotificationsHistoryMojoProxy(
 }
 
 void RewardsServiceImpl::OnGetAdsNotificationsHistory(
-    std::unique_ptr<ledger::TransactionsInfo> transactionInfo) {
-  if (!transactionInfo) {
+    std::unique_ptr<ledger::TransactionsInfo> transactions_info) {
+  if (!transactions_info) {
     return;
   }
-  std::vector<ledger::TransactionInfo> transactions;
-  transactions = transactionInfo->transactions;
 
-  if (transactions.size() > 0) {
+  int total_viewed = transactions_info->transactions.size();
+  if (total_viewed > 0) {
     double estimated_earnings = 0.0;
-    int total_viewed = transactions.size();
 
-    for (const auto& transaction : transactions) {
+    for (const auto& transaction : transactions_info->transactions) {
       estimated_earnings += transaction.estimated_redemption_value;
     }
 

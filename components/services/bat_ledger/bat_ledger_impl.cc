@@ -370,14 +370,15 @@ void BatLedgerImpl::AdSustained(const std::string& info) {
 }
 
 void BatLedgerImpl::GetAdsNotificationsHistory(
-    const uint64_t from_timestamp,
-    const uint64_t to_timestamp,
+    const uint64_t from_timestamp_seconds,
+    const uint64_t to_timestamp_seconds,
     GetAdsNotificationsHistoryCallback callback) {
   auto* holder = new CallbackHolder<GetAdsNotificationsHistoryCallback>(
       AsWeakPtr(), std::move(callback));
 
-  ledger_->GetAdsNotificationsHistory(from_timestamp, to_timestamp,
-      std::bind(BatLedgerImpl::OnGetAdsNotificationsHistory, holder, _1));
+  ledger_->GetAdsNotificationsHistory(from_timestamp_seconds,
+      to_timestamp_seconds, std::bind(
+      BatLedgerImpl::OnGetAdsNotificationsHistory, holder, _1));
 }
 
 // static

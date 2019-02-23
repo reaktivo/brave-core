@@ -278,9 +278,9 @@ class LEDGER_EXPORT Ledger {
 
   virtual void AdSustained(const std::string& info) = 0;
   virtual void GetAdsNotificationsHistory(
-    const uint64_t from_timestamp,
-    const uint64_t to_timestamp,
-    ledger::AdsNotificationsHistoryCallback callback) = 0;
+      const uint64_t from_timestamp_seconds,
+      const uint64_t to_timestamp_seconds,
+      ledger::AdsNotificationsHistoryCallback callback) = 0;
 };
 
 }  // namespace ledger
