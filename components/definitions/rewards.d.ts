@@ -26,6 +26,8 @@ declare namespace Rewards {
   export interface State {
     addresses?: Record<AddressesType, Address>
     adsData: AdsData
+    adsNotificationsReceived: number
+    adsEstimatedEarnings: number
     autoContributeList: Publisher[]
     connectedWallet: boolean
     contributeLoad: boolean

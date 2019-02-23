@@ -9,11 +9,15 @@ import { connect } from 'react-redux'
 // Components
 import {
   Box,
-  DisabledContent
+  DisabledContent,
+  List,
+  NextContribution,
+  Tokens
 } from 'brave-ui/features/rewards'
 import { Grid, Column, Select, ControlWrapper } from 'brave-ui/components'
 
 // Utils
+import * as utils from '../utils'
 import { getLocale } from '../../../../common/locale'
 import * as rewardsActions from '../actions/rewards_actions'
 
@@ -90,7 +94,15 @@ class AdsBox extends React.Component<Props, State> {
   render () {
     let adsEnabled = false
     let adsUIEnabled = false
-    const { adsData, enabledMain, firstLoad } = this.props.rewardsData
+
+    const {
+      adsData,
+      enabledMain,
+      firstLoad,
+      walletInfo,
+      adsNotificationsReceived,
+      adsEstimatedEarnings
+    } = this.props.rewardsData
 
     if (adsData) {
       adsEnabled = adsData.adsEnabled
@@ -113,7 +125,25 @@ class AdsBox extends React.Component<Props, State> {
         onToggle={this.onAdsSettingChange.bind(this, 'adsEnabled', '')}
         settingsOpened={this.state.settings}
         onSettingsClick={this.onSettingsToggle}
-      />
+      >
+        <List title={getLocale('adsCurrentEarnings')}>
+          <Tokens
+            value={adsEstimatedEarnings.toString()}
+            converted={utils.convertBalance(adsEstimatedEarnings.toString(), walletInfo.rates)}
+          />
+        </List>
+        <List title={getLocale('adsPaymentDate')}>
+          <NextContribution>
+            {'Monthly, 5th'}
+          </NextContribution>
+        </List>
+        <List title={getLocale('adsNotificationsReceived')}>
+          <Tokens
+            value={adsNotificationsReceived.toString()}
+            hideText={true}
+          />
+        </List>
+      </Box>
     )
   }
 }

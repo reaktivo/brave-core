@@ -56,7 +56,9 @@ export const defaultState: Rewards.State = {
   },
   pendingContributionTotal: 0,
   grants: [],
-  currentGrant: undefined
+  currentGrant: undefined,
+  adsNotificationsReceived: 0,
+  adsEstimatedEarnings: 0
 }
 
 const cleanData = (state: Rewards.State) => state

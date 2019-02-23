@@ -1472,7 +1472,25 @@ void RewardsServiceImpl::OnGetAdsNotificationsHistory(
   if (!transactionInfo) {
     return;
   }
-  //
+  std::vector<ledger::TransactionInfo> transactions;
+  transactions = transactionInfo->transactions;
+
+  if (transactions.size() > 0) {
+    double estimated_earnings = 0.0;
+    int total_viewed = transactions.size();
+
+    for (const auto& transaction : transactions) {
+      estimated_earnings += transaction.estimated_redemption_value;
+    }
+
+    TriggerOnAdsNotificationsData(total_viewed, estimated_earnings);
+  }
+}
+
+void RewardsServiceImpl::TriggerOnAdsNotificationsData(int total_viewed,
+    double estimated_earnings) {
+  for (auto& observer : observers_)
+    observer.OnAdsNotificationsData(this, total_viewed, estimated_earnings);
 }
 
 void RewardsServiceImpl::SaveState(const std::string& name,

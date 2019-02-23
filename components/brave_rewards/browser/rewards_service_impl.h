@@ -271,6 +271,7 @@ class RewardsServiceImpl : public RewardsService,
                           std::unique_ptr<ledger::WalletInfo> info) override;
   void OnDonate(const std::string& publisher_key, int amount, bool recurring,
       std::unique_ptr<brave_rewards::ContentSite> site) override;
+  void TriggerOnAdsNotificationsData(int total_viewed, double estimated_earnings);
 
   // ledger::LedgerClient
   std::string GenerateGUID() const override;
