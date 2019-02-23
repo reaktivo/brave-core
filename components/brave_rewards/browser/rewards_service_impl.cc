@@ -907,9 +907,12 @@ void RewardsServiceImpl::OnLedgerStateLoaded(
   if (!Connected())
     return;
 
-  handler->OnLedgerStateLoaded(data.empty() ? ledger::Result::NO_LEDGER_STATE
-                                            : ledger::Result::LEDGER_OK,
-                               data);
+  ledger::Result error_code = data.empty() ? ledger::Result::NO_LEDGER_STATE
+                                           : ledger::Result::LEDGER_OK;
+  handler->OnLedgerStateLoaded(error_code, data);
+
+  TriggerOnRewardsInitialized(error_code);
+
   bat_ledger_->GetRewardsMainEnabled(
       base::BindOnce(&RewardsServiceImpl::StartNotificationTimers,
         AsWeakPtr()));
@@ -1649,6 +1652,11 @@ void RewardsServiceImpl::TriggerOnRewardsMainEnabled(
     bool rewards_main_enabled) {
   for (auto& observer : observers_)
     observer.OnRewardsMainEnabled(this, rewards_main_enabled);
+}
+
+void RewardsServiceImpl::TriggerOnRewardsInitialized(int error_code) {
+  for (auto& observer : observers_)
+    observer.OnRewardsInitialized(this, error_code);
 }
 
 void RewardsServiceImpl::SavePublishersList(const std::string& publishers_list,
